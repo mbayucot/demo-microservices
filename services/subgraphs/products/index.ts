@@ -13,25 +13,26 @@ const typeDefs = gql(ql);
 
 const resolvers = {
     Query: {
-        allProducts: (_, args, context) => {
+        allProducts: (_: any, args: any, context: any) => {
             return products;
         },
-        product: (_, args, context) => {
+        product: (_: any, args: any, context: any) => {
             return products.find(p => p.id == args.id);
         }
     },
     Product: {
-        variation: (reference) => {
+        variation: (reference: any) => {
             if (reference.variation) return { id: reference.variation };
+            // @ts-ignore
             return { id: products.find(p => p.id == reference.id).variation }
         },
         dimensions: () => {
             return { size: "1", weight: 1 }
         },
-        createdBy: (reference) => {
+        createdBy: (reference: any) => {
             return { email: 'support@apollographql.com', totalProductsCreated: 1337 }
         },
-        __resolveReference: (reference) => {
+        __resolveReference: (reference: any) => {
             if (reference.id) return products.find(p => p.id == reference.id);
             else if (reference.sku && reference.package) return products.find(p => p.sku == reference.sku && p.package == reference.package);
             else return { id: 'rover', package: '@apollo/rover', ...reference };
@@ -39,6 +40,7 @@ const resolvers = {
     }
 }
 
+// @ts-ignore
 const server = new ApolloServer({
     schema: buildSubgraphSchema({ typeDefs, resolvers })
 });

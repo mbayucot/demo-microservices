@@ -1,5 +1,5 @@
 // Open Telemetry (optional)
-const { ApolloOpenTelemetry } = require('supergraph-demo-opentelemetry');
+import { ApolloOpenTelemetry } from 'apollo-server-lambda';
 
 if (process.env.APOLLO_OTEL_EXPORTER_TYPE) {
     new ApolloOpenTelemetry({
@@ -14,9 +14,9 @@ if (process.env.APOLLO_OTEL_EXPORTER_TYPE) {
 }
 
 // Main
-const { ApolloServer } = require('apollo-server');
-const { ApolloGateway } = require('@apollo/gateway');
-const { readFileSync } = require('fs');
+import { ApolloServer } from 'apollo-server';
+import { ApolloGateway } from '@apollo/gateway';
+import { readFileSync } from 'fs';
 
 const port = process.env.APOLLO_PORT || 4000;
 const embeddedSchema = process.env.APOLLO_SCHEMA_CONFIG_EMBEDDED == "true" ? true : false;

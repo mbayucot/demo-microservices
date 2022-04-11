@@ -11,7 +11,7 @@ const typeDefs = gql(readFileSync(resolve(__dirname, './users.graphql'), { encod
 
 const resolvers = {
     User: {
-        __resolveReference: (reference) => {
+        __resolveReference: (reference: any) => {
             return users.find(u => u.email == reference.email);
         }
     }

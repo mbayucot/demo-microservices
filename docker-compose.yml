@@ -3,7 +3,7 @@ services:
   apollo-gateway:
     container_name: apollo-gateway
     build: ./gateway
-    env_file: # create with make graph-api-env
+    env_file:
       - graph-api.env
     ports:
       - "4000:4000"
