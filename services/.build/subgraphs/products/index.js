@@ -42,7 +42,6 @@ const resolvers = {
         }
     }
 };
-// @ts-ignore
 const server = new apollo_server_lambda_1.ApolloServer({
     schema: (0, subgraph_1.buildSubgraphSchema)({ typeDefs, resolvers })
 });

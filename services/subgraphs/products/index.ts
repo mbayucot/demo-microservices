@@ -40,7 +40,6 @@ const resolvers = {
     }
 }
 
-// @ts-ignore
 const server = new ApolloServer({
     schema: buildSubgraphSchema({ typeDefs, resolvers })
 });
