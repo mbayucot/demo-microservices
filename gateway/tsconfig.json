@@ -9,7 +9,7 @@
     "strictPropertyInitialization": false,
     "sourceMap": true,
     "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
-  },
-  "include": ["./src/**/*", "./src/*"]
+    "experimentalDecorators": true,
+    "esModuleInterop": true
+  }
 }

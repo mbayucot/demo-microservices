@@ -3,9 +3,12 @@ from node:16-alpine
 WORKDIR /usr/src/app
 
 COPY package.json .
+COPY tsconfig.json .
 
-RUN npm install
+RUN npm install && npm install typescript -g
 
-COPY gateway.js .
+COPY index.ts .
 
-CMD [ "node", "gateway.js" ]
+RUN tsc
+
+CMD [ "node", "./dist/index.js" ]

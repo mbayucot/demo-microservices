@@ -9,13 +9,11 @@
   },
   "author": "",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
+    "@apollo/gateway": "0.50.0",
     "apollo-server": "3.6.7",
     "supergraph-demo-opentelemetry": "0.2.3",
-    "typescript": "^4.5.5"
-  },
-  "dependencies": {
-    "apollo-server-lambda": "^3.6.2",
-    "graphql": "^16.3.0"
+    "graphql": "15.8.0",
+    "apollo-server-lambda": "^3.6.2"
   }
 }

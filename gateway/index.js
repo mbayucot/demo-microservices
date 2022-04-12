@@ -1,5 +1,5 @@
 // Open Telemetry (optional)
-import { ApolloOpenTelemetry } from 'apollo-server-lambda';
+const { ApolloOpenTelemetry } = require('supergraph-demo-opentelemetry');
 
 if (process.env.APOLLO_OTEL_EXPORTER_TYPE) {
     new ApolloOpenTelemetry({
@@ -14,9 +14,9 @@ if (process.env.APOLLO_OTEL_EXPORTER_TYPE) {
 }
 
 // Main
-import { ApolloServer } from 'apollo-server';
-import { ApolloGateway } from '@apollo/gateway';
-import { readFileSync } from 'fs';
+const { ApolloServer } = require('apollo-server');
+const { ApolloGateway } = require('@apollo/gateway');
+const { readFileSync } = require('fs');
 
 const port = process.env.APOLLO_PORT || 4000;
 const embeddedSchema = process.env.APOLLO_SCHEMA_CONFIG_EMBEDDED == "true" ? true : false;
@@ -32,10 +32,10 @@ if (embeddedSchema){
     console.log('Starting Apollo Gateway in managed mode ...');
 }
 
-const gateway = new ApolloGateway(config);
+const index = new ApolloGateway(config);
 
 const server = new ApolloServer({
-    gateway: gateway,
+    gateway: index,
     debug: true,
     // Subscriptions are unsupported but planned for a future Gateway version.
     subscriptions: false
