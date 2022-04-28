@@ -13,14 +13,14 @@ provider:
 
 functions:
   products:
-    handler: subgraphs/products/index.handler
+    handler: src/subgraphs/products/index.handler
     events:
       - http:
           path: products
           method: ANY
           cors: true
   users:
-    handler: subgraphs/users/index.handler
+    handler: src/subgraphs/users/index.handler
     events:
       - http:
           path: users

@@ -21,9 +21,7 @@ const index = new ApolloGateway(config);
 
 const server = new ApolloServer({
     gateway: index,
-    debug: true,
-    // Subscriptions are unsupported but planned for a future Gateway version.
-    //subscriptions: false
+    debug: true
 });
 
 server.listen( {port: port} ).then(({ url }) => {

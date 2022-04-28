@@ -5,12 +5,18 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "serverless offline start",
-    "postbundle": "copyfiles -u 1 **/*.graphql .build/subgraphs/"
+    "postbundle": "copyfiles -u 1 **/*.graphql .build/subgraphs/",
+    "predev": "npm run codegen",
+    "codegen": "graphql-codegen --config codegen.yml"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.4.8",
+    "@graphql-codegen/typescript-resolvers": "^2.6.1",
     "apollo-server": "^3.6.2",
+    "prettier": "2.6.2",
     "serverless": "^3.1.1",
     "serverless-offline": "^8.4.0",
     "serverless-plugin-typescript": "^2.1.1",
@@ -20,6 +26,11 @@
     "@apollo/subgraph": "^0.4.0",
     "apollo-server-lambda": "^3.6.2",
     "copyfiles": "^2.4.1",
-    "graphql": "^16.3.0"
+    "datasource-sql": "^2.0.1",
+    "dotenv": "^16.0.0",
+    "graphql": "^16.3.0",
+    "knex": "^2.0.0",
+    "pg": "^8.7.3",
+    "pg-hstore": "^2.3.4"
   }
 }

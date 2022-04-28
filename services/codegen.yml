@@ -1,0 +1,13 @@
+overwrite: true
+schema:
+  - src/subgraphs/**/*.graphql
+documents: null
+generates:
+  src/generated/graphql.ts:
+    config:
+      avoidOptionals: true
+      useIndexSignature: true
+      contextType: ../index#Context
+    plugins:
+      - 'typescript'
+      - 'typescript-resolvers'
