@@ -4,7 +4,7 @@ import { Product } from "../generated/graphql";
 
 export class ProductsApi extends SQLDataSource {
   async getProducts() {
-    return this.knex.select("*").from("posts");
+    return this.knex.select("*").from("products");
   }
 
   async getProduct(id: number) {

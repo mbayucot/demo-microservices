@@ -5,7 +5,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "serverless offline start",
-    "postbundle": "copyfiles -u 1 **/*.graphql .build/subgraphs/",
+    "postbundle": "copyfiles -u 1 **/*.graphql .build/src/",
     "predev": "npm run codegen",
     "codegen": "graphql-codegen --config codegen.yml"
   },

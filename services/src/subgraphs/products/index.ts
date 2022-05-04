@@ -24,10 +24,12 @@ const typeDefs = gql(ql);
 const resolvers = {
   Query: {
     allProducts: async (_, {}, { dataSources }) => {
+      //return products;
       return dataSources.productsApi.getProducts();
     },
     product: async (_, { id }, { dataSources }) => {
-      return dataSources.productsApi.getProduct(id);
+      return products.find((p) => p.id == args.id);
+      //return dataSources.productsApi.getProduct(id);
     },
   },
   Product: {
@@ -53,16 +55,21 @@ const resolvers = {
   },
 };
 
-const dbName = process.env.POSTGRES_DBNAME as string;
-const dbUser = process.env.POSTGRES_USER as string;
-const dbHost = process.env.POSTGRES_HOST as string;
-const dbPassword = process.env.POSTGRES_PASSWORD as string;
+//const dbName = process.env.POSTGRES_DBNAME as string;
+//const dbUser = process.env.POSTGRES_USER as string;
+//const dbHost = process.env.POSTGRES_HOST as string;
+//const dbPassword = process.env.POSTGRES_PASSWORD as string;
+
+const dbName = "demo_development";
+const dbUser = "sysdba";
+const dbHost = "localhost";
+const dbPassword = "Sss7hqYr";
 
 const knexConfig = {
   client: "pg",
   connection: {
     host: dbHost,
-    port: 3306,
+    port: 5432,
     user: dbUser,
     password: dbPassword,
     database: dbName,
