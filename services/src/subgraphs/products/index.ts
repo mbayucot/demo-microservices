@@ -3,6 +3,7 @@ import { buildSubgraphSchema } from "@apollo/subgraph";
 import { readFileSync } from "fs";
 import { resolve } from "path";
 
+import { knexConfig } from "../../config/db";
 import { ProductsApi } from "../../datasources/post";
 
 const products = [
@@ -28,8 +29,9 @@ const resolvers = {
       return dataSources.productsApi.getProducts();
     },
     product: async (_, { id }, { dataSources }) => {
-      return products.find((p) => p.id == args.id);
-      //return dataSources.productsApi.getProduct(id);
+      console.log(id);
+      //return products.find((p) => p.id == args.id);
+      return dataSources.productsApi.getProduct(id);
     },
   },
   Product: {
@@ -52,27 +54,6 @@ const resolvers = {
         );
       else return { id: "rover", package: "@apollo/rover", ...reference };
     },
-  },
-};
-
-//const dbName = process.env.POSTGRES_DBNAME as string;
-//const dbUser = process.env.POSTGRES_USER as string;
-//const dbHost = process.env.POSTGRES_HOST as string;
-//const dbPassword = process.env.POSTGRES_PASSWORD as string;
-
-const dbName = "demo_development";
-const dbUser = "sysdba";
-const dbHost = "localhost";
-const dbPassword = "Sss7hqYr";
-
-const knexConfig = {
-  client: "pg",
-  connection: {
-    host: dbHost,
-    port: 5432,
-    user: dbUser,
-    password: dbPassword,
-    database: dbName,
   },
 };
 

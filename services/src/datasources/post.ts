@@ -1,6 +1,7 @@
 import { SQLDataSource } from "datasource-sql";
 
 import { Product } from "../generated/graphql";
+import { User } from "../generated/graphql";
 
 export class ProductsApi extends SQLDataSource {
   async getProducts() {
@@ -8,7 +9,11 @@ export class ProductsApi extends SQLDataSource {
   }
 
   async getProduct(id: number) {
-    return this.knex.select("*").from("posts").where({ id: id });
+    const query = await this.knex
+      .select("*")
+      .from("products")
+      .where({ id: id });
+    return query[0];
   }
 
   async createProduct(id: number, name: string) {

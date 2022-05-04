@@ -13,6 +13,7 @@ const apollo_server_lambda_1 = require("apollo-server-lambda");
 const subgraph_1 = require("@apollo/subgraph");
 const fs_1 = require("fs");
 const path_1 = require("path");
+const db_1 = require("../../config/db");
 const post_1 = require("../../datasources/post");
 const products = [
     {
@@ -35,8 +36,9 @@ const resolvers = {
             return dataSources.productsApi.getProducts();
         }),
         product: (_, { id }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
-            return products.find((p) => p.id == args.id);
-            //return dataSources.productsApi.getProduct(id);
+            console.log(id);
+            //return products.find((p) => p.id == args.id);
+            return dataSources.productsApi.getProduct(id);
         }),
     },
     Product: {
@@ -62,29 +64,11 @@ const resolvers = {
         },
     },
 };
-//const dbName = process.env.POSTGRES_DBNAME as string;
-//const dbUser = process.env.POSTGRES_USER as string;
-//const dbHost = process.env.POSTGRES_HOST as string;
-//const dbPassword = process.env.POSTGRES_PASSWORD as string;
-const dbName = "demo_development";
-const dbUser = "sysdba";
-const dbHost = "localhost";
-const dbPassword = "Sss7hqYr";
-const knexConfig = {
-    client: "pg",
-    connection: {
-        host: dbHost,
-        port: 5432,
-        user: dbUser,
-        password: dbPassword,
-        database: dbName,
-    },
-};
 const server = new apollo_server_lambda_1.ApolloServer({
     schema: (0, subgraph_1.buildSubgraphSchema)({ typeDefs, resolvers }),
     dataSources: () => {
         return {
-            productsApi: new post_1.ProductsApi(knexConfig),
+            productsApi: new post_1.ProductsApi(db_1.knexConfig),
         };
     },
 });

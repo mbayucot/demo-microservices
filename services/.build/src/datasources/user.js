@@ -9,37 +9,34 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.ProductsApi = void 0;
+exports.UsersApi = void 0;
 const datasource_sql_1 = require("datasource-sql");
-class ProductsApi extends datasource_sql_1.SQLDataSource {
-    getProducts() {
+class UsersApi extends datasource_sql_1.SQLDataSource {
+    getUsers() {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex.select("*").from("products");
+            return this.knex.select("*").from("users");
         });
     }
-    getProduct(id) {
+    getUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const query = yield this.knex
-                .select("*")
-                .from("products")
-                .where({ id: id });
+            const query = yield this.knex.select("*").from("users").where({ id: id });
             return query[0];
         });
     }
-    createProduct(id, name) {
+    createUser(id, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").insert({ name: "Tim" });
+            return this.knex("users").insert({ name: "Tim" });
         });
     }
-    updateProduct(id, name) {
+    updateUser(id, name) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").where({ id: id }).update({ name: name });
+            return this.knex("users").where({ id: id }).update({ name: name });
         });
     }
-    deleteProduct(id) {
+    deleteUser(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").where({ id: id }).del();
+            return this.knex("users").where({ id: id }).del();
         });
     }
 }
-exports.ProductsApi = ProductsApi;
+exports.UsersApi = UsersApi;
