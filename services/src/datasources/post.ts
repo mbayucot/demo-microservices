@@ -24,11 +24,13 @@ export class ProductsApi extends SQLDataSource {
     return { success: true };
   }
 
-  async updateProduct(id: number, name: string) {
-    return this.knex("posts").where({ id: id }).update({ name: name });
+  async updateProduct(id: number, sku: string) {
+    await this.knex("products").where({ id: id }).update({ sku: sku });
+    return { success: true };
   }
 
   async deleteProduct(id: number) {
-    return this.knex("posts").where({ id: id }).del();
+    await this.knex("products").where({ id: id }).del();
+    return { success: true };
   }
 }

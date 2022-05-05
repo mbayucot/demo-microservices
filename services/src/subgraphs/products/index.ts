@@ -36,6 +36,12 @@ const resolvers = {
     createProduct: async (_, { sku, userId }, { dataSources }) => {
       return dataSources.productsApi.createProduct(sku, userId);
     },
+    updateProduct: async (_, { id, sku }, { dataSources }) => {
+      return dataSources.productsApi.updateProduct(id, sku);
+    },
+    deleteProduct: async (_, { id }, { dataSources }) => {
+      return dataSources.productsApi.deleteProduct(id);
+    },
   },
   Product: {
     variation: (reference: any) => {

@@ -31,11 +31,8 @@ type Result {
 
 extend type Mutation {
     createProduct(sku: String!, userId: ID!): Result
-    #updateProductName(id: ID!, name: String!): Product
-    #updateProductDescription(
-    #    id: ID!,
-    #    description: String!
-    #): Product
+    updateProduct(id: ID!, sku: String!): Result
+    deleteProduct(id: ID!): Result
 }
 
 extend type User @key(fields: "id") {

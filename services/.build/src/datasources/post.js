@@ -35,14 +35,16 @@ class ProductsApi extends datasource_sql_1.SQLDataSource {
             return { success: true };
         });
     }
-    updateProduct(id, name) {
+    updateProduct(id, sku) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").where({ id: id }).update({ name: name });
+            yield this.knex("products").where({ id: id }).update({ sku: sku });
+            return { success: true };
         });
     }
     deleteProduct(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").where({ id: id }).del();
+            yield this.knex("products").where({ id: id }).del();
+            return { success: true };
         });
     }
 }

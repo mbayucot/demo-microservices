@@ -43,6 +43,12 @@ const resolvers = {
         createProduct: (_, { sku, userId }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
             return dataSources.productsApi.createProduct(sku, userId);
         }),
+        updateProduct: (_, { id, sku }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.productsApi.updateProduct(id, sku);
+        }),
+        deleteProduct: (_, { id }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.productsApi.deleteProduct(id);
+        }),
     },
     Product: {
         variation: (reference) => {
