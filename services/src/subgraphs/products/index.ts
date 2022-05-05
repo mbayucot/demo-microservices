@@ -5,6 +5,7 @@ import { resolve } from "path";
 
 import { knexConfig } from "../../config/db";
 import { ProductsApi } from "../../datasources/post";
+import { UsersApi } from "../../datasources/user";
 
 const products = [
   {
@@ -25,12 +26,9 @@ const typeDefs = gql(ql);
 const resolvers = {
   Query: {
     allProducts: async (_, {}, { dataSources }) => {
-      //return products;
       return dataSources.productsApi.getProducts();
     },
     product: async (_, { id }, { dataSources }) => {
-      console.log(id);
-      //return products.find((p) => p.id == args.id);
       return dataSources.productsApi.getProduct(id);
     },
   },
@@ -43,8 +41,13 @@ const resolvers = {
     dimensions: () => {
       return { size: "1", weight: 1 };
     },
-    createdBy: (reference: any) => {
-      return { email: "support@apollographql.com", totalProductsCreated: 1337 };
+    createdBy: async (reference: any, {}, { dataSources }) => {
+      return dataSources.usersApi.getUser(reference.id);
+      //return {
+      //  email: "support123@apollographql.com",
+      //  name: "hey",
+      //  totalProductsCreated: 1337,
+      //};
     },
     __resolveReference: (reference: any) => {
       if (reference.id) return products.find((p) => p.id == reference.id);
@@ -62,6 +65,7 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       productsApi: new ProductsApi(knexConfig),
+      usersApi: new UsersApi(knexConfig),
     };
   },
 });

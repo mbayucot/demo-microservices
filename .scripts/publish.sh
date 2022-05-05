@@ -12,6 +12,6 @@ for subgraph in ${subgraphs[@]}; do
   echo "subgraph: ${subgraph}"
   echo "---------------------------------------"
   url="url_$subgraph"
-  (set -x; ${ROVER_BIN:-'rover'} subgraph publish ${APOLLO_GRAPH_REF} --routing-url "${!url}" --schema services/subgraphs/${subgraph}/${subgraph}.graphql --name ${subgraph} --convert)
+  (set -x; ${ROVER_BIN:-'rover'} subgraph publish ${APOLLO_GRAPH_REF} --routing-url "${!url}" --schema services/src/subgraphs/${subgraph}/${subgraph}.graphql --name ${subgraph} --convert)
   echo ""
 done

@@ -24,7 +24,7 @@ extend type Query {
     product(id: ID!): Product
 }
 
-extend type User @key(fields: "email") {
-    email: ID! @external
+extend type User @key(fields: "id") {
+    id: ID! @external
     totalProductsCreated: Int @external
 }

@@ -49,7 +49,8 @@ export type QueryProductArgs = {
 
 export type User = {
   __typename?: 'User';
-  email: Scalars['ID'];
+  email: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
   name: Maybe<Scalars['String']>;
   totalProductsCreated: Maybe<Scalars['Int']>;
 };
@@ -183,7 +184,8 @@ export type QueryResolvers<ContextType = Context, ParentType extends ResolversPa
 }>;
 
 export type UserResolvers<ContextType = Context, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = ResolversObject<{
-  email: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  email: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   name: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   totalProductsCreated: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;

@@ -15,6 +15,7 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const db_1 = require("../../config/db");
 const post_1 = require("../../datasources/post");
+const user_1 = require("../../datasources/user");
 const products = [
     {
         id: "apollo-federation",
@@ -32,12 +33,9 @@ const typeDefs = (0, apollo_server_lambda_1.gql)(ql);
 const resolvers = {
     Query: {
         allProducts: (_, {}, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
-            //return products;
             return dataSources.productsApi.getProducts();
         }),
         product: (_, { id }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log(id);
-            //return products.find((p) => p.id == args.id);
             return dataSources.productsApi.getProduct(id);
         }),
     },
@@ -51,9 +49,14 @@ const resolvers = {
         dimensions: () => {
             return { size: "1", weight: 1 };
         },
-        createdBy: (reference) => {
-            return { email: "support@apollographql.com", totalProductsCreated: 1337 };
-        },
+        createdBy: (reference, {}, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.usersApi.getUser(reference.id);
+            //return {
+            //  email: "support123@apollographql.com",
+            //  name: "hey",
+            //  totalProductsCreated: 1337,
+            //};
+        }),
         __resolveReference: (reference) => {
             if (reference.id)
                 return products.find((p) => p.id == reference.id);
@@ -69,6 +72,7 @@ const server = new apollo_server_lambda_1.ApolloServer({
     dataSources: () => {
         return {
             productsApi: new post_1.ProductsApi(db_1.knexConfig),
+            usersApi: new user_1.UsersApi(db_1.knexConfig),
         };
     },
 });
