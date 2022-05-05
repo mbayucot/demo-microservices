@@ -27,9 +27,7 @@ const typeDefs = (0, apollo_server_lambda_1.gql)((0, fs_1.readFileSync)((0, path
 const resolvers = {
     User: {
         __resolveReference: (reference, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
-            console.log(reference);
-            return dataSources.usersApi.getUser(1);
-            //return users.find((u) => u.email == reference.email);
+            return dataSources.usersApi.getUser(reference.id);
         }),
     },
 };

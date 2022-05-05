@@ -26,9 +26,13 @@ class ProductsApi extends datasource_sql_1.SQLDataSource {
             return query[0];
         });
     }
-    createProduct(id, name) {
+    createProduct(sku, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("posts").insert({ name: "Tim" });
+            yield this.knex("products").insert({
+                user_id: userId,
+                sku: sku,
+            });
+            return { success: true };
         });
     }
     updateProduct(id, name) {

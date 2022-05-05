@@ -39,6 +39,11 @@ const resolvers = {
             return dataSources.productsApi.getProduct(id);
         }),
     },
+    Mutation: {
+        createProduct: (_, { sku, userId }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.productsApi.createProduct(sku, userId);
+        }),
+    },
     Product: {
         variation: (reference) => {
             if (reference.variation)

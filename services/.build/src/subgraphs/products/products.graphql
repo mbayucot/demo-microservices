@@ -6,6 +6,7 @@ type Product @key(fields: "id") @key(fields: "sku package") @key(fields: "sku va
     package: String
     variation: ProductVariation
     dimensions: ProductDimension
+    userId: ID
 
     createdBy: User @provides(fields: "totalProductsCreated")
 }
@@ -22,6 +23,19 @@ type ProductDimension {
 extend type Query {
     allProducts: [Product]
     product(id: ID!): Product
+}
+
+type Result {
+    success: Boolean
+}
+
+extend type Mutation {
+    createProduct(sku: String!, userId: ID!): Result
+    #updateProductName(id: ID!, name: String!): Product
+    #updateProductDescription(
+    #    id: ID!,
+    #    description: String!
+    #): Product
 }
 
 extend type User @key(fields: "id") {

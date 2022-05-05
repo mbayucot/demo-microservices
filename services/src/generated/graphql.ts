@@ -15,6 +15,17 @@ export type Scalars = {
   Float: number;
 };
 
+export type Mutation = {
+  __typename?: 'Mutation';
+  createProduct: Maybe<Product>;
+};
+
+
+export type MutationCreateProductArgs = {
+  sku: Scalars['String'];
+  userId: Scalars['ID'];
+};
+
 export type Product = {
   __typename?: 'Product';
   createdBy: Maybe<User>;
@@ -22,6 +33,7 @@ export type Product = {
   id: Scalars['ID'];
   package: Maybe<Scalars['String']>;
   sku: Maybe<Scalars['String']>;
+  userId: Maybe<Scalars['ID']>;
   variation: Maybe<ProductVariation>;
 };
 
@@ -129,6 +141,7 @@ export type ResolversTypes = ResolversObject<{
   Float: ResolverTypeWrapper<Scalars['Float']>;
   ID: ResolverTypeWrapper<Scalars['ID']>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Product: ResolverTypeWrapper<Product>;
   ProductDimension: ResolverTypeWrapper<ProductDimension>;
   ProductVariation: ResolverTypeWrapper<ProductVariation>;
@@ -143,6 +156,7 @@ export type ResolversParentTypes = ResolversObject<{
   Float: Scalars['Float'];
   ID: Scalars['ID'];
   Int: Scalars['Int'];
+  Mutation: {};
   Product: Product;
   ProductDimension: ProductDimension;
   ProductVariation: ProductVariation;
@@ -157,12 +171,17 @@ export type TagDirectiveArgs = {
 
 export type TagDirectiveResolver<Result, Parent, ContextType = Context, Args = TagDirectiveArgs> = DirectiveResolverFn<Result, Parent, ContextType, Args>;
 
+export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+  createProduct: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<MutationCreateProductArgs, 'sku' | 'userId'>>;
+}>;
+
 export type ProductResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Product'] = ResolversParentTypes['Product']> = ResolversObject<{
   createdBy: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType>;
   dimensions: Resolver<Maybe<ResolversTypes['ProductDimension']>, ParentType, ContextType>;
   id: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   package: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   sku: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  userId: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
   variation: Resolver<Maybe<ResolversTypes['ProductVariation']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -192,6 +211,7 @@ export type UserResolvers<ContextType = Context, ParentType extends ResolversPar
 }>;
 
 export type Resolvers<ContextType = Context> = ResolversObject<{
+  Mutation: MutationResolvers<ContextType>;
   Product: ProductResolvers<ContextType>;
   ProductDimension: ProductDimensionResolvers<ContextType>;
   ProductVariation: ProductVariationResolvers<ContextType>;

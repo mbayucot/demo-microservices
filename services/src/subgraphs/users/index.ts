@@ -22,9 +22,7 @@ const typeDefs = gql(
 const resolvers = {
   User: {
     __resolveReference: async (reference: any, { dataSources }) => {
-      console.log(reference);
-      return dataSources.usersApi.getUser(1);
-      //return users.find((u) => u.email == reference.email);
+      return dataSources.usersApi.getUser(reference.id);
     },
   },
 };

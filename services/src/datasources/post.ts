@@ -16,8 +16,12 @@ export class ProductsApi extends SQLDataSource {
     return query[0];
   }
 
-  async createProduct(id: number, name: string) {
-    return this.knex("posts").insert({ name: "Tim" });
+  async createProduct(sku: string, userId: number) {
+    await this.knex("products").insert({
+      user_id: userId,
+      sku: sku,
+    });
+    return { success: true };
   }
 
   async updateProduct(id: number, name: string) {

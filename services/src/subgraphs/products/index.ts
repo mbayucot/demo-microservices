@@ -32,6 +32,11 @@ const resolvers = {
       return dataSources.productsApi.getProduct(id);
     },
   },
+  Mutation: {
+    createProduct: async (_, { sku, userId }, { dataSources }) => {
+      return dataSources.productsApi.createProduct(sku, userId);
+    },
+  },
   Product: {
     variation: (reference: any) => {
       if (reference.variation) return { id: reference.variation };
