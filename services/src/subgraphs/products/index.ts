@@ -44,29 +44,8 @@ const resolvers = {
     },
   },
   Product: {
-    variation: (reference: any) => {
-      if (reference.variation) return { id: reference.variation };
-      // @ts-ignore
-      return { id: products.find((p) => p.id == reference.id).variation };
-    },
-    dimensions: () => {
-      return { size: "1", weight: 1 };
-    },
     createdBy: async (reference: any, {}, { dataSources }) => {
-      return dataSources.usersApi.getUser(reference.id);
-      //return {
-      //  email: "support123@apollographql.com",
-      //  name: "hey",
-      //  totalProductsCreated: 1337,
-      //};
-    },
-    __resolveReference: (reference: any) => {
-      if (reference.id) return products.find((p) => p.id == reference.id);
-      else if (reference.sku && reference.package)
-        return products.find(
-          (p) => p.sku == reference.sku && p.package == reference.package
-        );
-      else return { id: "rover", package: "@apollo/rover", ...reference };
+      return dataSources.usersApi.getUser(reference.user_id);
     },
   },
 };

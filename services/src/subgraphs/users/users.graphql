@@ -3,4 +3,15 @@ type User @key(fields: "id") {
     email: String
     name: String
     totalProductsCreated: Int
+    products: [Product]
+}
+
+extend type Query {
+    allUsers: [User]
+    user(id: ID!): User
+}
+
+extend type Product @key(fields: "id") {
+    id: ID! @external
+    sku: String
 }

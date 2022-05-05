@@ -8,6 +8,10 @@ export class ProductsApi extends SQLDataSource {
     return this.knex.select("*").from("products");
   }
 
+  async getUserProducts(userId: string) {
+    return this.knex.select("*").from("products").where({ user_id: userId });
+  }
+
   async getProduct(id: number) {
     const query = await this.knex
       .select("*")

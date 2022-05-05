@@ -17,6 +17,11 @@ class ProductsApi extends datasource_sql_1.SQLDataSource {
             return this.knex.select("*").from("products");
         });
     }
+    getUserProducts(userId) {
+        return __awaiter(this, void 0, void 0, function* () {
+            return this.knex.select("*").from("products").where({ user_id: userId });
+        });
+    }
     getProduct(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const query = yield this.knex

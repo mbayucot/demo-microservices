@@ -15,17 +15,22 @@ const fs_1 = require("fs");
 const path_1 = require("path");
 const db_1 = require("../../config/db");
 const user_1 = require("../../datasources/user");
-const users = [
-    {
-        email: "support@apollographql.com",
-        name: "Apollo Studio Support",
-        totalProductsCreated: 4,
-    },
-];
+const post_1 = require("../../datasources/post");
 const typeDefs = (0, apollo_server_lambda_1.gql)((0, fs_1.readFileSync)((0, path_1.resolve)(__dirname, "./users.graphql"), { encoding: "utf-8" }));
 // @ts-ignore
 const resolvers = {
+    Query: {
+        allUsers: (_, {}, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.usersApi.getUsers();
+        }),
+        user: (_, { id }, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.usersApi.getUser(id);
+        }),
+    },
     User: {
+        products: (reference, {}, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
+            return dataSources.productsApi.getUserProducts(reference.id);
+        }),
         __resolveReference: (reference, { dataSources }) => __awaiter(void 0, void 0, void 0, function* () {
             return dataSources.usersApi.getUser(reference.id);
         }),
@@ -36,6 +41,7 @@ const server = new apollo_server_lambda_1.ApolloServer({
     dataSources: () => {
         return {
             usersApi: new user_1.UsersApi(db_1.knexConfig),
+            productsApi: new post_1.ProductsApi(db_1.knexConfig),
         };
     },
 });

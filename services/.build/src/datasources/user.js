@@ -23,20 +23,5 @@ class UsersApi extends datasource_sql_1.SQLDataSource {
             return query[0];
         });
     }
-    createUser(id, name) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("users").insert({ name: "Tim" });
-        });
-    }
-    updateUser(id, name) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("users").where({ id: id }).update({ name: name });
-        });
-    }
-    deleteUser(id) {
-        return __awaiter(this, void 0, void 0, function* () {
-            return this.knex("users").where({ id: id }).del();
-        });
-    }
 }
 exports.UsersApi = UsersApi;

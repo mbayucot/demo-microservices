@@ -5,14 +5,7 @@ import { resolve } from "path";
 
 import { knexConfig } from "../../config/db";
 import { UsersApi } from "../../datasources/user";
-
-const users = [
-  {
-    email: "support@apollographql.com",
-    name: "Apollo Studio Support",
-    totalProductsCreated: 4,
-  },
-];
+import { ProductsApi } from "../../datasources/post";
 
 const typeDefs = gql(
   readFileSync(resolve(__dirname, "./users.graphql"), { encoding: "utf-8" })
@@ -20,7 +13,18 @@ const typeDefs = gql(
 
 // @ts-ignore
 const resolvers = {
+  Query: {
+    allUsers: async (_, {}, { dataSources }) => {
+      return dataSources.usersApi.getUsers();
+    },
+    user: async (_, { id }, { dataSources }) => {
+      return dataSources.usersApi.getUser(id);
+    },
+  },
   User: {
+    products: async (reference: any, {}, { dataSources }) => {
+      return dataSources.productsApi.getUserProducts(reference.id);
+    },
     __resolveReference: async (reference: any, { dataSources }) => {
       return dataSources.usersApi.getUser(reference.id);
     },
@@ -32,6 +36,7 @@ const server = new ApolloServer({
   dataSources: () => {
     return {
       usersApi: new UsersApi(knexConfig),
+      productsApi: new ProductsApi(knexConfig),
     };
   },
 });
